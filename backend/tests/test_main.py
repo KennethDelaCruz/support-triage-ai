@@ -1,4 +1,5 @@
 """Tests for the main FastAPI application."""
+
 import pytest
 from httpx import AsyncClient
 from httpx._transports.asgi import ASGITransport
@@ -20,4 +21,3 @@ async def test_health_endpoint(client):
     response = await client.get("/health")
     assert response.status_code == 200
     assert response.json() == {"ok": True}
-

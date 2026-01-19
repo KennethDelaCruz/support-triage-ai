@@ -1,4 +1,5 @@
 """Tests for Pydantic schemas."""
+
 import pytest
 from pydantic import ValidationError
 
@@ -55,4 +56,3 @@ def test_triage_response_valid():
     assert response.summary == "Test summary"
     assert response.intent == "test_intent"
     assert response.urgency == "P1"
-

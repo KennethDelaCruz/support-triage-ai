@@ -19,9 +19,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/health")
 def health():
     return {"ok": True}
+
 
 @app.post("/triage", response_model=TriageResponse)
 def triage(req: TriageRequest) -> TriageResponse:
@@ -45,7 +47,9 @@ def triage(req: TriageRequest) -> TriageResponse:
         urgency = "P3"
         next_step = "Send relevant help doc and ask for clarification if needed."
 
-    summary = "Auto-triage (mock): extracted key issue from the ticket and prepared routing details."
+    summary = (
+        "Auto-triage (mock): extracted key issue from the ticket and prepared routing details."
+    )
 
     return TriageResponse(
         summary=summary,
