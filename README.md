@@ -98,7 +98,19 @@ The API will be available at `http://localhost:8000`
 
 ## Code Quality & Linting
 
-This project uses modern Python linting and formatting tools:
+This project uses modern Python linting and formatting tools. **Unused variables and imports will trigger linting errors** to keep the codebase clean.
+
+### CI/CD
+
+GitHub Actions automatically runs on every push and pull request to:
+
+- ✅ Check for linting errors (including unused variables/imports)
+- ✅ Verify code formatting
+- ✅ Run type checking
+- ✅ Test that the API builds and runs correctly
+- ✅ Smoke test API endpoints
+
+View the workflow in `.github/workflows/ci.yml`.
 
 ### Setup
 
