@@ -11,7 +11,9 @@
     "format": "cd backend && ./lint.sh format",
     "format:check": "cd backend && ./lint.sh format:check",
     "typecheck": "cd backend && ./lint.sh typecheck",
-    "check": "cd backend && ./lint.sh check"
+    "check": "cd backend && ./lint.sh check",
+    "test": "cd backend && source venv/bin/activate 2>/dev/null || true && pytest tests/ -v",
+    "test:cov": "cd backend && source venv/bin/activate 2>/dev/null || true && pytest tests/ -v --cov=app --cov-report=html"
   },
   "keywords": [
     "support",

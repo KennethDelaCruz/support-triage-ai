@@ -48,6 +48,20 @@ jobs:
           python -c "from app.main import app; from app.schemas import TriageRequest, TriageResponse, TriageMeta"
           echo "✓ All imports successful"
 
+      - name: Run tests with pytest
+        run: |
+          cd backend
+          pytest tests/ -v --cov=app --cov-report=term-missing --cov-report=xml
+        continue-on-error: false
+
+      - name: Upload coverage to Codecov (optional)
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./backend/coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+        continue-on-error: true
+
       - name: Test API endpoints (smoke test)
         run: |
           cd backend
