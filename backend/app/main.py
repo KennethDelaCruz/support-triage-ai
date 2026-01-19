@@ -5,9 +5,15 @@ from .schemas import TriageRequest, TriageResponse, TriageMeta
 
 app = FastAPI(title="Support Triage API", version="0.1.0")
 
+# CORS configuration - update with your Vercel frontend URL when deployed
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173",  # Vite default port
+        # Add your Vercel frontend URL here after deployment
+        # "https://your-frontend.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -48,4 +54,3 @@ def triage(req: TriageRequest) -> TriageResponse:
         next_step=next_step,
         meta=TriageMeta(model="mock_rules_v1", fallback_used=True, confidence=0.55),
     )
-

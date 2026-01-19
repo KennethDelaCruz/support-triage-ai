@@ -131,3 +131,65 @@ Once the server is running, visit:
 
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
+
+## Deployment to Vercel
+
+This project is configured for deployment to Vercel as a portfolio project.
+
+### Prerequisites
+
+1. Install Vercel CLI:
+
+```bash
+npm i -g vercel
+# or
+pnpm add -g vercel
+```
+
+2. Login to Vercel:
+
+```bash
+vercel login
+```
+
+### Deploy
+
+1. From the project root, run:
+
+```bash
+vercel
+```
+
+2. Follow the prompts to link your project (or create a new one)
+
+3. For production deployment:
+
+```bash
+vercel --prod
+```
+
+### Environment Variables
+
+If you add environment variables (like `HUGGING_FACE_API_KEY`), set them in Vercel:
+
+- Via CLI: `vercel env add HUGGING_FACE_API_KEY`
+- Via Dashboard: Project Settings → Environment Variables
+
+### Important Notes
+
+- The API will be available at `https://your-project.vercel.app`
+- Update the CORS origins in `backend/app/main.py` with your Vercel frontend URL after deployment
+- FastAPI routes are automatically handled by Vercel's Python runtime
+- The `/docs` and `/redoc` endpoints will work on Vercel
+
+### Project Structure for Vercel
+
+```
+support-triage-ai/
+├── api/
+│   └── index.py          # Vercel serverless entry point
+├── backend/
+│   └── app/              # FastAPI application
+├── vercel.json          # Vercel configuration
+└── requirements.txt     # Python dependencies (Vercel reads this)
+```

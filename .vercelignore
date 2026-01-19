@@ -1,0 +1,16 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+ENV/
+.venv
+*.db
+*.sqlite
+.git/
+.cursor/
+node_modules/
+.pnpm-store/
+
