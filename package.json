@@ -3,9 +3,15 @@
   "version": "0.1.0",
   "description": "AI-powered support ticket summarization and triage system",
   "scripts": {
-    "start:backend": "cd backend && ./start.sh",
-    "dev:backend": "cd backend && ./start.sh",
-    "backend": "cd backend && ./start.sh"
+    "start": "cd backend && ./start.sh",
+    "dev": "cd backend && ./start.sh",
+    "backend": "cd backend && ./start.sh",
+    "lint": "cd backend && ./lint.sh lint",
+    "lint:fix": "cd backend && ./lint.sh lint:fix",
+    "format": "cd backend && ./lint.sh format",
+    "format:check": "cd backend && ./lint.sh format:check",
+    "typecheck": "cd backend && ./lint.sh typecheck",
+    "check": "cd backend && ./lint.sh check"
   },
   "keywords": [
     "support",

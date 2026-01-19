@@ -96,6 +96,65 @@ uvicorn app.main:app --reload --port 8000
 
 The API will be available at `http://localhost:8000`
 
+## Code Quality & Linting
+
+This project uses modern Python linting and formatting tools:
+
+### Setup
+
+Install development dependencies:
+
+```bash
+cd backend
+source venv/bin/activate
+pip install -r requirements-dev.txt
+```
+
+### Available Commands
+
+**Linting (Ruff):**
+
+```bash
+pnpm lint          # Check for linting errors
+pnpm lint:fix      # Auto-fix linting errors
+```
+
+**Formatting (Black):**
+
+```bash
+pnpm format        # Format code
+pnpm format:check  # Check formatting without changing files
+```
+
+**Type Checking (MyPy):**
+
+```bash
+pnpm typecheck     # Run type checker
+```
+
+**Run All Checks:**
+
+```bash
+pnpm check         # Run lint, format check, and typecheck
+```
+
+### Tools Used
+
+- **Ruff** - Fast Python linter (replaces flake8, isort, and more)
+- **Black** - Opinionated code formatter
+- **MyPy** - Static type checker
+
+### Pre-commit Hooks (Optional)
+
+To automatically run linters before each commit:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+This will run linting and formatting checks automatically when you commit.
+
 ## API Endpoints
 
 - `GET /health` - Health check endpoint
