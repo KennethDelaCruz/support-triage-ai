@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -6,15 +8,19 @@ from .services.triage_service import triage_ticket
 
 app = FastAPI(title="Support Triage API", version="0.1.0")
 
-# CORS configuration - update with your Vercel frontend URL when deployed
+# CORS configuration
+# Allow Vercel preview and production deployments
+vercel_origins = os.getenv("VERCEL_ORIGINS", "").split(",") if os.getenv("VERCEL_ORIGINS") else []
+cors_origins = [
+    "http://localhost:3000",
+    "http://localhost:5173",  # Vite default port
+    *[origin.strip() for origin in vercel_origins if origin.strip()],
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:5173",  # Vite default port
-        # Add your Vercel frontend URL here after deployment
-        # "https://your-frontend.vercel.app"
-    ],
+    allow_origins=cors_origins,
+    allow_origin_regex=r"https://.*\.vercel\.app",  # Allow all Vercel deployments
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

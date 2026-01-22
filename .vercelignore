@@ -1,16 +1,46 @@
-venv/
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
 .Python
+venv/
 env/
 ENV/
 .venv
-*.db
-*.sqlite
-.git/
-.cursor/
-node_modules/
-.pnpm-store/
 
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.xml
+tests/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Development files
+*.log
+*.bat
+start.sh
+Makefile
+lint.sh
+
+# Node modules (if not needed for build)
+node_modules/
+
+# Documentation
+README.md
+*.md
+
+# Git
+.git/
+.gitignore
