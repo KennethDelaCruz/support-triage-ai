@@ -1,5 +1,9 @@
 import re
-from app.schemas import TriageResponse, TriageMeta, Intent, Urgency
+from ..schemas import TriageResponse, TriageMeta, Intent, Urgency
+
+def _containts_any(text: str, keywords: list[str]) -> bool:
+    """Check if any keyword is contained in the text."""
+    return any(keyword in text for keyword in keywords)
 
 def rule_based_triage(ticket_text: str) -> TriageResponse:
     t = ticket_text.lower()
@@ -46,19 +50,21 @@ def rule_based_triage(ticket_text: str) -> TriageResponse:
         next_step = "Confirm use case and business impact; tag as feature request and route to Product feedback."
     elif _containts_any(t, intents["bug_report"]):
         intent = Intent.bug_report
-          next_step = "Request reproduction steps, environment, and logs; route to Engineering triage."
+        next_step = "Request reproduction steps, environment, and logs; route to Engineering triage."
     elif re.search(r'\b(?:how|what|why|when|where|who|which|whose|whom)\s+to\s+', t):
         intent = Intent.how_to_question
+        next_step = "Provide documentation or guide user through the process."
     else:
         intent = Intent.unknown
+        next_step = "Review ticket and route appropriately."
 
-    lines = [ln.strip for ln in ticket_text.splitlines() if ln.strip()]
+    lines = [ln.strip() for ln in ticket_text.splitlines() if ln.strip()]
     summary = lines[0] if lines else "Ticket received. Auto-triaged applied via fallback rules."
 
     return TriageResponse(
         summary=summary[:2000],
         intent=intent,
         urgency=urgency,
-        next_step=
+        next_step=next_step,
         meta=TriageMeta(model="fallback_rules_v1", fallback_used=True, confidence=0.55),
     )
