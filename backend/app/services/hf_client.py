@@ -5,7 +5,12 @@ import re
 import httpx
 from dotenv import load_dotenv
 
-load_dotenv()
+# Load .env file if it exists (for local development)
+# In Vercel, environment variables are set directly, so this is safe
+try:
+    load_dotenv()
+except Exception:
+    pass  # Ignore if .env file doesn't exist (normal in Vercel)
 
 HF_TOKEN = os.getenv("HF_TOKEN", "").strip()
 HF_MODEL = os.getenv("HF_MODEL", "meta-llama/Meta-Llama-3-8B-Instruct").strip()

@@ -119,12 +119,21 @@ The current configuration automatically allows:
 - Ensure `requirements.txt` is in the project root
 - Check build logs in Vercel dashboard for specific errors
 
-### API Routes Not Working
+### API Routes Not Working / 500 Internal Server Error
 
 - Verify `api/index.py` exists and properly exports the FastAPI app
 - Vercel auto-detects serverless functions in `api/` directory - no explicit routing needed
 - Ensure Python version is specified in `runtime.txt` (not in `vercel.json`)
 - Check that routes are accessible at `/api/health` and `/api/triage`
+- **If you see `FUNCTION_INVOCATION_FAILED` or 500 errors:**
+  - Check Vercel function logs in the dashboard for detailed error messages
+  - Verify that the `backend/` directory and all its files are included in the deployment
+  - Ensure `requirements.txt` is in the project root and includes all dependencies
+  - The `api/index.py` file includes error handling that will print detailed debug info to logs
+  - Common issues:
+    - Missing `__init__.py` files in `backend/app/` or `backend/app/services/`
+    - Import path resolution issues (check logs for Python path information)
+    - Missing environment variables (check that `HF_TOKEN` is set if using AI features)
 
 ### Environment Variables Not Loading
 
