@@ -1,10 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .schemas import TriageMeta, TriageRequest, TriageResponse
+from .schemas import TriageRequest, TriageResponse
 from .services.triage_service import triage_ticket
-
-
 
 app = FastAPI(title="Support Triage API", version="0.1.0")
 

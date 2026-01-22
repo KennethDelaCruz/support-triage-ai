@@ -1,5 +1,7 @@
 import re
-from ..schemas import TriageResponse, TriageMeta, Intent, Urgency
+
+from ..schemas import Intent, TriageMeta, TriageResponse
+
 
 def _containts_any(text: str, keywords: list[str]) -> bool:
     """Check if any keyword is contained in the text."""

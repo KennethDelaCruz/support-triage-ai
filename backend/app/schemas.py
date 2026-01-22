@@ -1,7 +1,8 @@
 from enum import Enum
-from pydantic import BaseModel, Field, ConfigDict
+
+from pydantic import BaseModel, ConfigDict, Field
 from pydantic.alias_generators import to_camel
-from typing import Literal, Optional
+
 
 class Intent(str, Enum):
     billing_refund = "billing_refund"
@@ -35,7 +36,7 @@ class BaseCamelModel(BaseModel):
 class TriageRequest(BaseCamelModel):
     ticket_text: str = Field(..., description="The raw ticket content to analyze")
     source: TicketSource = TicketSource.web
-    ticket_id: Optional[str] = Field(default=None, max_length=100, description="The ID of the ticket")
+    ticket_id: str | None = Field(default=None, max_length=100, description="The ID of the ticket")
 
 class TriageMeta(BaseCamelModel):
     model: str = Field(..., description="Model or method used for triage")

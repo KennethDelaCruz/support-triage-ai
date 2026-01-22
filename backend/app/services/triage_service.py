@@ -1,5 +1,6 @@
 import os
-from ..schemas import TriageRequest, TriageResponse, TriageMeta, Intent
+
+from ..schemas import Intent, TriageMeta, TriageRequest, TriageResponse
 from .fallback_rules import rule_based_triage
 from .hf_client import hf_generate_triage
 
