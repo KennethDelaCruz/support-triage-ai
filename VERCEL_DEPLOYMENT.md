@@ -71,33 +71,39 @@ vercel --prod
 
 ### `vercel.json`
 
-- Configures both Next.js frontend and Python API
-- Python API routes are available at `/api/*`
-- Frontend routes are handled by Next.js
+- Uses Vercel's modern configuration (no deprecated `builds` property)
+- Configures Next.js build commands for the `frontend/` subdirectory
+- Python API in `api/` directory is auto-detected by Vercel
+- Python API routes are automatically available at `/api/*`
+
+### `runtime.txt`
+
+- Specifies Python version (3.12) for Vercel's Python runtime
+- Prevents the "No Python version specified" warning
 
 ### `api/index.py`
 
 - Entry point for Vercel's Python serverless functions
 - Imports and exports the FastAPI application from `backend/app/main.py`
+- Automatically detected by Vercel (no explicit configuration needed)
 
 ### `requirements.txt`
 
 - Python dependencies required for the API
+- Must be in the project root directory
 - Vercel automatically installs these during build
 
 ## Post-Deployment
 
-### 1. Update CORS Settings
+### 1. Update CORS Settings (Optional)
 
-After deployment, update the CORS origins in `backend/app/main.py` to include your Vercel frontend URL:
+The CORS configuration in `backend/app/main.py` already supports all Vercel deployments automatically via regex pattern. If you need to add specific origins, you can set the `VERCEL_ORIGINS` environment variable (comma-separated list).
 
-```python
-allow_origins=[
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "https://your-project.vercel.app",  # Add your Vercel URL
-]
-```
+The current configuration automatically allows:
+
+- All `*.vercel.app` domains (preview and production deployments)
+- Local development origins (localhost:3000, localhost:5173)
+- Any origins specified in the `VERCEL_ORIGINS` environment variable
 
 ### 2. Test the Deployment
 
@@ -116,8 +122,9 @@ allow_origins=[
 ### API Routes Not Working
 
 - Verify `api/index.py` exists and properly exports the FastAPI app
-- Check that `vercel.json` routes are correctly configured
-- Ensure Python version is set to 3.12 in `vercel.json`
+- Vercel auto-detects serverless functions in `api/` directory - no explicit routing needed
+- Ensure Python version is specified in `runtime.txt` (not in `vercel.json`)
+- Check that routes are accessible at `/api/health` and `/api/triage`
 
 ### Environment Variables Not Loading
 
